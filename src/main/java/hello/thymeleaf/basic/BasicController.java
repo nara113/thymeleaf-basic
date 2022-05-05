@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -42,12 +43,17 @@ public class BasicController {
         return "basic/variable";
     }
 
+    @AllArgsConstructor @Getter
+    static class User {
+        private String username;
+        private int age;
+    }
+
     @GetMapping("/basic-objects")
     public String basicObjects(HttpSession httpSession) {
         httpSession.setAttribute("sessionData", "Hello session");
         return "basic/basic-objects";
     }
-
     @Component("helloBean")
     static class HelloBean {
         public String hello(String data) {
@@ -55,9 +61,9 @@ public class BasicController {
         }
     }
 
-    @AllArgsConstructor @Getter
-    static class User {
-        private String username;
-        private int age;
+    @GetMapping("/date")
+    public String date(Model model) {
+        model.addAttribute("localDateTime", LocalDateTime.now());
+        return "basic/date";
     }
 }
