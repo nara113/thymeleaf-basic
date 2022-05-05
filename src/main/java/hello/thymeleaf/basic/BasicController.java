@@ -115,4 +115,10 @@ public class BasicController {
         addUsers(model);
         return "basic/condition";
     }
+
+    @GetMapping("/comments")
+    public String comments(Model model) {
+        model.addAttribute("data", "Spring!");
+        return "basic/comments";
+    }
 }
